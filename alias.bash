@@ -11,6 +11,7 @@ alias dstats="docker ps --format='table {{.ID}}\t{{.Names}}\t{{.Image}}' | sed 1
 alias ssf="ssh \$(awk '/^Host / && !/\\*/ {print \$2}' ~/.ssh/config | fzf)"
 
 alias gist="gist.fzf"
+alias pr="pr.fzf"
 
 alias ssh-rsa='ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa'
 
