@@ -1,0 +1,42 @@
+[user]
+	name = Sahil Patel
+	email = sahil.patel@coldchainscience.com
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[alias]
+    l=log -10 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    ln=log -10 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s%n' --date=short
+    lg=log -10 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg0=log --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg1=log -1 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg2=log -2 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg3=log -3 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg4=log -4 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg5=log -5 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg10=log -10 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    lg20=log -20 --graph --pretty=format:'%C(yellow)%h %C(auto,blue)%>(10,trunc)%ad %C(green)%<(7)%aN%C(auto)%d %Creset%s' --date=short
+    a=add
+    s=status
+    st=status
+    b=branch
+    ba=branch -a
+    s=switch
+    c=checkout -b
+    co=commit
+    cc=commit
+    ca=commit --amend
+    mt=mergetool --tool=nvimdiff
+    p=pull --rebase
+    pp=push
+    pu=push
+    ppf=push --force-with-lease
+    puf=push --force-with-lease
+    f=fetch -p
+    d=diff
+    r=rebase
+    w=whatchanged
