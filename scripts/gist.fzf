@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# https://github.com/junegunn/everything.fzf/blob/main/gist.fzf
+
+fzf --no-height --no-tmux --reverse --with-nth 2.. --ansi \
+    --input-border --info inline-right \
+    --bind $'start:reload:gh gist list | column -t -s "\t"' \
+    --bind 'enter:execute:gh gist edit {1}' \
+    --preview 'GH_FORCE_TTY=$FZF_PREVIEW_COLUMNS gh gist view {1}' \
+    --preview-window bottom:60%
+
