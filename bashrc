@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
+export PATH="/opt/homebrew/bin:$PATH"
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -42,12 +42,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -79,6 +79,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -94,6 +95,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -101,13 +104,19 @@ export NVM_DIR="$HOME/.nvm"
 
 . "$HOME/.local/bin/env"
 
-# opencode
-export PATH=/home/spatel/.opencode/bin:$PATH
-
-# Add dotfiles scripts to PATH
 export PATH="$HOME/dotfiles/scripts:$PATH"
 
-eval "$(zoxide init bash)"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/alias.bash ] && source ~/alias.bash
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    if [[ -f ~/.macrc ]]; then
+        source ~/.macrc
+    fi
+
+elif [[ "$(uname)" == "Linux" ]]; then
+    if [[ -f ~/.linuxrc ]]; then
+        source ~/.linuxrc
+    fi
+fi
+
+eval "$(zoxide init bash)"

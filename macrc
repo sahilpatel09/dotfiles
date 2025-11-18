@@ -1,0 +1,16 @@
+export PATH="/opt/homebrew/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. "$HOME/.local/bin/env"
+. "$HOME/.cargo/env"
+
+export PATH="$PATH:/Users/spatel/.lmstudio/bin"
+export PATH="$PATH:/opt/homebrew/opt/flutter/bin"
+export PATH="/usr/local/opt/openssh/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/spatel/.lmstudio/bin"
+export PATH="/opt/homebrew/bin:$PATH"
