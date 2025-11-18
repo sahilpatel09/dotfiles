@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker ps --format '{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}' | sort -k2 | \
+fzf --ansi --reverse \
+    --header 'Select a container to see logs (last 1000 lines, follow mode)' \
+    --preview 'docker logs --tail 1000 -f {1} 2>&1 | less -R +G' \
+    --preview-window right:70%:wrap
