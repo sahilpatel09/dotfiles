@@ -1,6 +1,6 @@
 [user]
 	name = Sahil Patel
-	email = smppatel99999@gmail.com
+	email = smppatel999@gmail.com
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
