@@ -14,20 +14,23 @@ alias ssf="ssh \$(awk '/^Host / && !/\\*/ {print \$2}' ~/.ssh/config | fzf)"
 alias gist="gist.fzf"
 alias pr="pr.fzf"
 alias dlogs="dlogs.fzf"
+alias pglogin='pglogin.fzf'
 
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+
 alias ls='eza --icons'
 alias ll='eza -lh --icons'
 alias la='eza -A --icons'
 alias l='eza -F --icons'
+alias lt='eza --long --tree --icons'
+alias ls='eza --icons --group-directories-first'
+alias ll='eza --long --all --header --icons --git --group-directories-first'
+alias lt2='eza --long --tree --icons --level=2'
+alias lt4='eza --long --tree --icons --level=4'
+alias ltt='eza --long --tree --icons'
+
 alias fd='fdfind'
 alias md='mkdir'
 alias rd='rmdir'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 alias ssh-rsa='ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa'
 
 alias ..='cd ..'
@@ -78,4 +81,5 @@ parse_git_branch() {
   git branch 2>/dev/null | sed -n '/\* /s///p' | awk '{print "\033[38;5;214m("$1")"}'
 }
 
-export PS1='\[\e[1;32m\]λ \[\e[0;33m\]\W\[\e[1;35m\] $(parse_git_branch)\[\e[0m\] '
+# export PS1='\[\e[1;32m\]λ \[\e[0;33m\]\W\[\e[1;35m\] $(parse_git_branch)\[\e[0m\] '
+export PS1='\[\e[38;5;208m\]λ \[\e[38;5;214m\]\W \[\e[0m\]$(parse_git_branch) \[\e[38;5;214m\]➜ \[\e[0m\]'
