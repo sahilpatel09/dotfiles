@@ -1,7 +1,58 @@
 #!/usr/bin/env bash
 
-docker ps --format '{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}' | sort -k2 | \
-fzf --ansi --reverse \
-    --header 'Select a container to see logs (last 1000 lines, follow mode)' \
-    --preview 'docker logs --tail 1000 -f {1} 2>&1 | less -R +G' \
-    --preview-window right:70%:wrap
+get_cmd() {
+    echo "docker logs -f --tail $1 $2 2>&1"
+}
+
+get_label() {
+    echo " Showing Last $1 lines "
+}
+
+SELECT_MODE=false
+
+while getopts "s" opt; do
+  case $opt in
+    s) SELECT_MODE=true ;;
+    *) echo "Usage: $0 [-s (select specific containers)]" >&2; exit 1 ;;
+  esac
+done
+
+ALL_CONTAINERS=$(docker ps --format '{{.Names}}' | sort)
+
+if [ -z "$ALL_CONTAINERS" ]; then
+    echo "No running Docker containers found."
+    exit 0
+fi
+
+if [ "$SELECT_MODE" = true ]; then
+    CONTAINER_LIST=$(echo "$ALL_CONTAINERS" | \
+        fzf --multi --ansi --reverse \
+            --header 'STEP 1: [TAB] to select | [ENTER] to launch' \
+            --preview 'docker logs --tail 20 {1} 2>&1' \
+            --preview-window='right:50%:wrap' \
+    )
+    [ -z "$CONTAINER_LIST" ] && exit 0
+else
+    CONTAINER_LIST="$ALL_CONTAINERS"
+fi
+
+HEADER=$'UP/DOWN: Switch Service\nSHIFT-UP/DN : Scroll Logs\nCTRL-U : Load 100 Lines\nCTRL-L : Load 1000 Lines\nCTRL-B : Reset to 20'
+
+echo "$CONTAINER_LIST" | \
+fzf --ansi \
+    --reverse \
+    --cycle \
+    --header-first \
+    --prompt="Monitor > " \
+    --pointer="▶" \
+    --height=100% \
+    --header "$HEADER" \
+    --preview "$(get_cmd 20 '{1}')" \
+    --preview-window='right:70%:wrap:follow' \
+    --preview-label "$(get_label 20 '{1}')" \
+    --preview-label-pos="top" \
+    --bind "shift-up:preview-up,shift-down:preview-down" \
+    --bind "ctrl-u:change-preview($(get_cmd 100 '{1}'))+change-preview-label($(get_label 100))" \
+    --bind "ctrl-l:change-preview($(get_cmd 1000 '{1}'))+change-preview-label($(get_label 1000))" \
+    --bind "ctrl-b:change-preview($(get_cmd 20 '{1}'))+change-preview-label($(get_label 20))" \
+    --bind "ctrl-f:execute(docker logs -f --tail 1000 {1})"
